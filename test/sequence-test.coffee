@@ -5,17 +5,45 @@ assert          = chai.assert
 should          = chai.should()
 
 sequence        = require '../src/sequence'
+Promise         = require 'any-promise'
 
+cast            = Promise.cast || Promise.resolve
 log             = console.log.bind console
 
 chai.use(sinonChai)
 
+sentinel = { value: 'sentinel' }
 createTask = (y) ->
   -> y
 
+expectArgs = (expected) ->
+  ->
+    args = Array::slice.call(arguments)
+    assert.deepEqual args, expected
+    return
 
 describe "sequence", ->
   it 'should execute tasks in order', ->
     sequence [createTask(1), createTask(2), createTask(3)]
     .then (result) ->
-      assert.equals(result, [1, 2, 3])
+      should.exist result
+      result.should.be.deep.equal [1, 2, 3]
+  it 'should resolve to empty array when no tasks supplied', ->
+    sequence([], 1, 2, 3).then (result) ->
+      assert.deepEqual result, []
+      return
+
+  it 'should pass args to all tasks',  (done)->
+    expected = [1, 2, 3]
+    tasks = [expectArgs(expected), expectArgs(expected), expectArgs(expected)]
+
+    sequence(tasks, expected).finally(done)
+
+  it 'should accept promises for args', (done)->
+    expected = [1, 2, 3]
+    tasks = [expectArgs(expected), expectArgs(expected), expectArgs(expected)]
+
+    expected = [cast.call(Promise, 1), cast.call(Promise, 2), cast.call(Promise, 3)]
+    sequence(tasks, expected).finally(done)
+  it 'should reject if task throws', ->
+    sequence([(->1), (->throw sentinel)]).catch (e)->assert.equal(e, sentinel)
