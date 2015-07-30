@@ -31,7 +31,7 @@
   "license": "MIT",
   "devDependencies": {
     "bluebird": "^2.9.34",
-    "chai": "~1.10.0",
+    "chai": "~3.2.0",
     "grunt": "*",
     "grunt-contrib-clean": "*",
     "grunt-contrib-coffee": "*",
@@ -44,10 +44,10 @@
     "grunt-release": "*",
     "grunt-saucelabs": "*",
     "istanbul": "^0.3.17",
-    "mocha": "~2.1.0",
-    "pre-commit": "0.0.11",
-    "sinon": "~1.12.2",
-    "sinon-chai": "~2.6.0",
+    "mocha": "~2.2.5",
+    "pre-commit": "^1.0.10",
+    "sinon": "~1.15.4",
+    "sinon-chai": "~2.8.0",
     "source-map-support": "*"
   },
   "pre-commit": [
