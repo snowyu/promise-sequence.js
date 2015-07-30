@@ -1,0 +1,63 @@
+{
+  "name": "promise-sequence",
+  "description": "Sequnence execution tasks via any-promise.",
+  "homepage": "https://github.com/snowyu/promise-sequence.js",
+  "version": "0.1.0",
+  "author": {
+    "name": "Riceball LEE",
+    "email": "snowyu.lee@gmail.com"
+  },
+  "files": [
+    "README.md",
+    "LICENSE-MIT",
+    "*.js",
+    "*.coffee",
+    "test",
+    "src",
+    "lib"
+  ],
+  "keywords": [
+    "series",
+    "sequence",
+    "promise",
+    "tasks",
+    "execute"
+  ],
+  "main": "./index.js",
+  "repository": "git://github.com/snowyu/promise-sequence.js",
+  "bugs": {
+    "url": "https://github.com/snowyu/promise-sequence.js/issues"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "bluebird": "^2.9.34",
+    "chai": "~1.10.0",
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-coffee": "*",
+    "grunt-contrib-copy": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-mocha-test": "*",
+    "grunt-newer": "*",
+    "grunt-release": "*",
+    "grunt-saucelabs": "*",
+    "istanbul": "^0.3.17",
+    "mocha": "~2.1.0",
+    "pre-commit": "0.0.11",
+    "sinon": "~1.12.2",
+    "sinon-chai": "~2.6.0",
+    "source-map-support": "*"
+  },
+  "pre-commit": [
+    "test"
+  ],
+  "scripts": {
+    "test": "grunt test",
+    "test-cov": "istanbul cover node_modules/.bin/_mocha --report lcovonly -- --reporter dot"
+  },
+  "dependencies": {
+    "any-promise": "^0.1.0"
+  }
+}
