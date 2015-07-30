@@ -9,7 +9,7 @@ module.exports = function any(aList, task){
   function _genReduceFn(fn) {
     return function (previous, item){
       if (previous == null)
-        previous = fn(item).caught(function(){});
+        previous = fn(item).catch(function(){});
       return previous;
     };
   }

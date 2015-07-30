@@ -10,7 +10,7 @@ module.exports = function some(aList, total, task){
     return function (previous, item){
       previous = previous.filter(Boolean);
       if (previous.length < total)
-        previous = Promise.all(previous.concat(fn(item).caught(function(){})));
+        previous = Promise.all(previous.concat(fn(item).catch(function(){})));
       return previous;
     };
   }
