@@ -23,14 +23,25 @@ expectArgs = (expected) ->
     return
 
 describe "sequence", ->
-  it 'should execute tasks in order', ->
+  it 'should execute tasks in order', (done)->
     sequence [createTask(1), createTask(2), createTask(3)]
     .then (result) ->
       should.exist result
       result.should.be.deep.equal [1, 2, 3]
-  it 'should resolve to empty array when no tasks supplied', ->
-    sequence([], 1, 2, 3).then (result) ->
+      done()
+
+  it 'should resolve to empty array when no tasks supplied', (done)->
+    sequence([], [1, 2, 3]).then (result) ->
       assert.deepEqual result, []
+      done()
+      return
+
+  it 'should pass args to a single task',  (done)->
+    expected = [1, 2, 3]
+    tasks = sinon.spy expectArgs(expected)
+    sequence(tasks, [1, 2, 3]).then (result) ->
+      tasks.should.be.calledOnce
+      done()
       return
 
   it 'should pass args to all tasks',  (done)->
