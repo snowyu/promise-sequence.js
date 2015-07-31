@@ -65,7 +65,7 @@ some(['./config.yml', './config.json'], 1, readFile).then(function(result){
 });
 ```
 
-like the bluebird.any, but it is sequence execution.
+like the bluebird.some, but it is sequence execution.
 need `Promise.reduce`.
 
 ## usage
