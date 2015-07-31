@@ -2,18 +2,33 @@ var Promise   = require('any-promise');
 var isArray   = Array.isArray;
 var cast      = Promise.cast || Promise.resolve;
 
-module.exports = function pipeline(tasks, args, self){
-  if (!isArray(args)) {
-    self = args;
-    args = void 0;
+/*
+  Run a set of task functions in sequence, passing the result
+  of the previous as an argument to the next.  Like a shell
+  pipeline, e.g. `cat file.txt | grep 'foo' | sed -e 's/foo/bar/g'
+
+  @param tasks {Array|Promise} array or promise for array of task functions
+  @param initialArgs {Array} arguments to be passed to the first task
+  @param self {*} `this` argument to be passed to the first task
+  @return {Promise} promise for return value of the final task
+*/
+module.exports = function pipeline(tasks, aArgs, self){
+  if (!isArray(aArgs)) {
+    self = aArgs;
+    aArgs = [];
   }
-  if (!isArray(tasks)) tasks = [tasks];
+  if (tasks && !isArray(tasks)) tasks = [tasks];
   if (!self) self = this;
-  var current = cast.call(Promise);
-  var result = [];
-  result.push(current = current.then(function(){return tasks[0].apply(self, args);}));
-  tasks.slice(1).forEach(function(task){
-    result.push(current = current.then(task));
+  return Promise.all(aArgs).then(function(args){
+    if (tasks && tasks.length) {
+      var current = cast.call(Promise);
+      current = current.then(function(){return tasks[0].apply(self, args);});
+      tasks.slice(1).forEach(function(task){
+        current = current.then(task);
+      });
+      return current;
+    } else {
+      return args;
+    }
   });
-  return Promise.all(result);
 };
