@@ -1,10 +1,10 @@
-### Promise Sequence [![npm](https://img.shields.io/npm/v/inherits-ex.svg)](https://npmjs.org/package/inherits-ex)
+### Promise Sequence [![npm](https://img.shields.io/npm/v/promise-sequence.svg)](https://npmjs.org/package/promise-sequence)
 
-[![Build Status](https://img.shields.io/travis/snowyu/inherits-ex.js/master.png)](http://travis-ci.org/snowyu/inherits-ex.js)
-[![Code Climate](https://codeclimate.com/github/snowyu/inherits-ex.js/badges/gpa.svg)](https://codeclimate.com/github/snowyu/inherits-ex.js)
-[![Test Coverage](https://codeclimate.com/github/snowyu/inherits-ex.js/badges/coverage.svg)](https://codeclimate.com/github/snowyu/inherits-ex.js/coverage)
-[![downloads](https://img.shields.io/npm/dm/inherits-ex.svg)](https://npmjs.org/package/inherits-ex)
-[![license](https://img.shields.io/npm/l/inherits-ex.svg)](https://npmjs.org/package/inherits-ex)
+[![Build Status](https://img.shields.io/travis/snowyu/promise-sequence.js/master.png)](http://travis-ci.org/snowyu/promise-sequence.js)
+[![Code Climate](https://codeclimate.com/github/snowyu/promise-sequence.js/badges/gpa.svg)](https://codeclimate.com/github/snowyu/promise-sequence.js)
+[![Test Coverage](https://codeclimate.com/github/snowyu/promise-sequence.js/badges/coverage.svg)](https://codeclimate.com/github/snowyu/promise-sequence.js/coverage)
+[![downloads](https://img.shields.io/npm/dm/promise-sequence.svg)](https://npmjs.org/package/promise-sequence)
+[![license](https://img.shields.io/npm/l/promise-sequence.svg)](https://npmjs.org/package/promise-sequence)
 
 
 Sequnence execution tasks via any-promise.
@@ -39,10 +39,31 @@ When all tasks have completed, the returned promise will resolve to the result o
 
 ### any(list, task)
 
+```js
+var any = require('promise-sequence/lib/any');
+var fs  = require 'fs'
+var readFile = Promise.promisify(fs.readFile, fs).catch(function(){})
+
+any(['./config.yml', './config.json'], readFile).then(function(result){
+  console.log(result);
+});
+```
+
+
 like the bluebird.any, but it is sequence execution.
 need `Promise.reduce`.
 
 ### some(list, total, task)
+
+```js
+var some = require('promise-sequence/lib/some');
+var fs  = require 'fs'
+var readFile = Promise.promisify(fs.readFile, fs).catch(function(){})
+
+some(['./config.yml', './config.json'], 1, readFile).then(function(result){
+  console.log(result); //it's an array.
+});
+```
 
 like the bluebird.any, but it is sequence execution.
 need `Promise.reduce`.
