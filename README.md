@@ -42,9 +42,13 @@ When all tasks have completed, the returned promise will resolve to the result o
 ```js
 var any = require('promise-sequence/lib/any');
 var fs  = require 'fs'
-var readFile = Promise.promisify(fs.readFile, fs).catch(function(){})
+var readFile = Promise.promisify(fs.readFile, fs)
 
-any(['./config.yml', './config.json'], readFile).then(function(result){
+var readFileAndIgnoreError = function (aFile, aOptions) {
+  return readFile(aFile,aOptions).catch(function(){});
+}
+
+any(['./config.yml', './config.json'], readFileAndIgnoreError).then(function(result){
   console.log(result);
 });
 ```
@@ -59,8 +63,11 @@ need `Promise.reduce`.
 var some = require('promise-sequence/lib/some');
 var fs  = require 'fs'
 var readFile = Promise.promisify(fs.readFile, fs).catch(function(){})
+var readFileAndIgnoreError = function (aFile, aOptions) {
+  return readFile(aFile,aOptions).catch(function(){});
+}
 
-some(['./config.yml', './config.json'], 1, readFile).then(function(result){
+some(['./config.yml', './config.json'], 1, readFileAndIgnoreError).then(function(result){
   console.log(result); //it's an array.
 });
 ```
