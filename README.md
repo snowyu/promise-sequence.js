@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/promise-sequence.svg)](https://npmjs.org/package/promise-sequence)
 
 
-Sequnence execution tasks via any-promise.
+Sequnence execution tasks via [any-promise](https://github.com/kevinbeaty/any-promise).
 
 
 ## API
