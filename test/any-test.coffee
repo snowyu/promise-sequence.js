@@ -5,6 +5,8 @@ assert          = chai.assert
 should          = chai.should()
 chai.use(sinonChai)
 
+require('any-promise/register')('bluebird')
+
 any             = require '../src/any'
 Promise         = require 'any-promise'
 
