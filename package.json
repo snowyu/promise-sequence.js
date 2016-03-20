@@ -2,7 +2,7 @@
   "name": "promise-sequence",
   "description": "Sequnence execution tasks via any-promise.",
   "homepage": "https://github.com/snowyu/promise-sequence.js",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "author": {
     "name": "Riceball LEE",
     "email": "snowyu.lee@gmail.com"
@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "bluebird": "^2.9.34",
+    "bluebird": "^3.3.4",
     "chai": "~3.2.0",
     "grunt": "*",
     "grunt-contrib-clean": "*",
