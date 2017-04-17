@@ -21,23 +21,27 @@ describe "any", ->
     any().catch (err)->
       should.exist err
       done()
+    return
 
   it 'should reject the non-array inputs', (done)->
     any cast(1)
     .catch (r)->
       should.exist r
       done()
+    return
 
   it 'should return undefined when zero inputs', (done)->
     any([]).then (result)->
       should.not.exist result
       done()
+    return
 
   it 'should reject the first rejected input value if someone is rejected', (done)->
     any [rejected(1), rejected(2), rejected(3)]
     .catch (err)->
       err.should.be.equal 1
       done()
+    return
 
   it 'should resolve with an input value', (done)->
     any [1,2,3]
@@ -45,6 +49,7 @@ describe "any", ->
       should.exist result
       result.should.be.equal 1
       done()
+    return
 
   it 'should resolve with a promised input value', (done)->
     any [cast(1),cast(2),cast(3)]
@@ -52,6 +57,7 @@ describe "any", ->
       should.exist result
       result.should.be.equal 1
       done()
+    return
   it 'should accept a promise for an array', (done)->
     any resolved [1,2,3]
     .catch (err)->
@@ -59,6 +65,7 @@ describe "any", ->
     .then (result)->
       assert.equal result, 1
       done()
+    return
 
   it 'should reject error with raiseError argument', (done)->
     task = sinon.spy (i)->
@@ -73,6 +80,7 @@ describe "any", ->
       assert.equal err, 'cusError'
       task.should.be.calledOnce
       done()
+    return
 
   it 'should skip errors until resolve a input value', (done)->
     task = sinon.spy (i)->
@@ -91,3 +99,4 @@ describe "any", ->
       result.should.be.equal '2'
       task.should.be.calledTwice
       done()
+    return

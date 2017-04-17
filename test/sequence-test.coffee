@@ -29,12 +29,13 @@ describe "sequence", ->
       should.exist result
       result.should.be.deep.equal [1, 2, 3]
       done()
+    return
 
   it 'should resolve to empty array when no tasks supplied', (done)->
     sequence([], [1, 2, 3]).then (result) ->
       assert.deepEqual result, []
       done()
-      return
+    return
 
   it 'should pass args to a single task',  (done)->
     expected = [1, 2, 3]
@@ -42,13 +43,14 @@ describe "sequence", ->
     sequence(tasks, [1, 2, 3]).then (result) ->
       tasks.should.be.calledOnce
       done()
-      return
+    return
 
   it 'should pass args to all tasks',  (done)->
     expected = [1, 2, 3]
     tasks = [expectArgs(expected), expectArgs(expected), expectArgs(expected)]
 
     sequence(tasks, expected).finally(done)
+    return
 
   it 'should accept promises for args', (done)->
     expected = [1, 2, 3]
@@ -56,5 +58,7 @@ describe "sequence", ->
 
     expected = [cast.call(Promise, 1), cast.call(Promise, 2), cast.call(Promise, 3)]
     sequence(tasks, expected).finally(done)
+    return
   it 'should reject if task throws', ->
     sequence([(->1), (->throw sentinel)]).catch (e)->assert.equal(e, sentinel)
+    return

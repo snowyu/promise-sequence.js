@@ -46,6 +46,7 @@ describe "pipeline", ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
     .finally(done)
+    return
 
   it 'should pass args to single task',  (done)->
     expected = [1, 2, 3]
@@ -55,6 +56,7 @@ describe "pipeline", ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
     .finally(done)
+    return
 
   it 'should allow initial args to be promises',  (done)->
     expected = [1, 2, 3]
@@ -66,3 +68,4 @@ describe "pipeline", ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
     .finally(done)
+    return
