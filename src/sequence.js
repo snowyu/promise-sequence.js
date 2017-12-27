@@ -25,7 +25,11 @@ module.exports = function sequence(tasks, aArgs, self){
     var current = cast.call(Promise);
     var result = [];
     tasks.forEach(function(task){
-      result.push(current = current.then(function(){return task.apply(self, args);}));
+      if (typeof task === 'function') {
+        result.push(current = current.then(function(){return task.apply(self, args);}));
+      } else {
+        result.push(task);
+      }
     });
     return Promise.all(result);
   });

@@ -59,6 +59,16 @@ describe "sequence", ->
     expected = [cast.call(Promise, 1), cast.call(Promise, 2), cast.call(Promise, 3)]
     sequence(tasks, expected).finally(done)
     return
+
   it 'should reject if task throws', ->
     sequence([(->1), (->throw sentinel)]).catch (e)->assert.equal(e, sentinel)
+    return
+
+  it 'should pass constants as task', (done)->
+    tasks = [1, "abcX", null, undefined]
+    sequence(tasks).then (result)->
+      result.should.have.length 4
+      tasks.should.be.deep.equal result
+      done()
+    .catch (e)->done(e)
     return
