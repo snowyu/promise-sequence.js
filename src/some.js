@@ -14,7 +14,7 @@ module.exports = function some(aList, total, task){
     return function (previous, item){
       previous = previous.filter(_undefined);
       if (!total || previous.length < total) {
-        previous = Promise.all(previous.concat(fn ? fn(item):item)).filter(_undefined);
+        previous = Promise.all(previous.concat(fn ? fn(item) : item)).filter(_undefined);
       }
       return previous;
     };
