@@ -25,7 +25,7 @@ module.exports = function sequence(tasks, aArgs, self){
     var current = cast.call(Promise);
     var result = [];
     tasks.forEach(function(task){
-      if (typeof task === 'function') {
+      if (task && task.apply) {
         result.push(current = current.then(function(){return task.apply(self, args);}));
       } else {
         result.push(task);
