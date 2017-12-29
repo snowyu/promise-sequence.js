@@ -45,7 +45,8 @@ describe "pipeline", ->
     sequence(tasks, expected).then ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
-    .finally(done)
+      done()
+    .catch(done)
     return
 
   it 'should pass args to single task',  (done)->
@@ -55,7 +56,8 @@ describe "pipeline", ->
     sequence(task, expected).then ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
-    .finally(done)
+      done()
+    .catch(done)
     return
 
   it 'should allow initial args to be promises',  (done)->
@@ -67,5 +69,25 @@ describe "pipeline", ->
     [cast.call(Promise, 1), cast.call(Promise, 2), cast.call(Promise, 3)]).then ->
       task.should.be.calledOnce
       assert.ok task.calledWith.apply task, expected
-    .finally(done)
+      done()
+    .catch(done)
     return
+
+  it 'should use constants as the first task',  (done)->
+    expected = [1, 2, 3]
+    task = sinon.spy (result)->result
+    tasks = ['123', task]
+
+    sequence(tasks, expected).then (result)->
+      assert.equal result, '123'
+      task.should.be.calledOnce
+      assert.ok task.calledWith '123'
+      done()
+    .catch(done)
+    return
+
+  it 'should pass constants as task', ->
+    sequence [createTask('b'), '1423', createTask('d')], ['a']
+    .then (result) ->
+      should.exist result
+      result.should.be.equal '1423d'

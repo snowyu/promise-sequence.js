@@ -22,9 +22,12 @@ module.exports = function pipeline(tasks, aArgs, self){
   return Promise.all(aArgs).then(function(args){
     if (tasks && tasks.length) {
       var current = cast.call(Promise);
-      current = current.then(function(){return tasks[0].apply(self, args);});
+      current = current.then(function(){
+        var task = tasks[0];
+        return task && task.apply ? task.apply(self, args) : task;
+      });
       tasks.slice(1).forEach(function(task){
-        current = current.then(task);
+        current = current.then(typeof task === 'function' ? task : function(){return task});
       });
       return current;
     } else {
