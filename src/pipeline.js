@@ -1,4 +1,4 @@
-var Promise   = require('any-promise');
+// var Promise   = require('any-promise');
 var isArray   = Array.isArray;
 var cast      = Promise.cast || Promise.resolve;
 
@@ -12,7 +12,7 @@ var cast      = Promise.cast || Promise.resolve;
   @param self {*} `this` argument to be passed to the first task
   @return {Promise} promise for return value of the final task
 */
-module.exports = function pipeline(tasks, aArgs, self){
+function pipeline(tasks, aArgs, self){
   if (!isArray(aArgs)) {
     self = aArgs;
     aArgs = [];
@@ -35,3 +35,6 @@ module.exports = function pipeline(tasks, aArgs, self){
     }
   });
 };
+
+module.exports = pipeline
+module.exports.default = pipeline

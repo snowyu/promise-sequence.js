@@ -6,11 +6,11 @@ should          = chai.should()
 chai.use(sinonChai)
 
 some            = require '../src/some'
-Promise         = require 'any-promise'
+# Promise         = require 'any-promise'
 
-cast            = Promise.cast || Promise.resolve
-rejected        = Promise.reject
-resolved        = Promise.resolve
+rejected        = Promise.reject.bind(Promise)
+resolved        = Promise.resolve.bind(Promise)
+cast            = resolved
 log             = console.log.bind console
 
 describe "some", ->

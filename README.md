@@ -7,7 +7,7 @@
 [![license](https://img.shields.io/npm/l/promise-sequence.svg)](https://npmjs.org/package/promise-sequence)
 
 
-Sequence execution tasks via [any-promise](https://github.com/kevinbeaty/any-promise).
+Promise Sequence execution tasks.
 
 
 ## API
@@ -55,7 +55,7 @@ any(['./config.yml', './config.json'], readFileAndIgnoreError).then(function(res
 
 
 like the bluebird.any, but it is sequence execution.
-need `Promise.reduce`.
+need `Promise.reduce`(patch already included).
 
 ### some(list, total, task)
 
@@ -73,7 +73,27 @@ some(['./config.yml', './config.json'], 1, readFileAndIgnoreError).then(function
 ```
 
 like the bluebird.some, but it is sequence execution.
-need `Promise.reduce`.
+need `Promise.reduce`(patch already included).
+
+### Promise.reduce(iteratable, reducer, initialValue): Promise<any>
+
+* reducer: `function<T>(<T> accumulator, any item, int index, int length): Promise<T>|T`
+
+Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and reduce the array to a value using the given reducer function.
+
+If the reducer function returns a promise, then the result of the promise is awaited, before continuing with next iteration. If any promise in the array is rejected or a promise returned by the reducer function is rejected, the result is rejected as well.
+
+Read given files sequentially while summing their contents as an integer. Each file contains just the text 10.
+
+```js
+Promise.reduce(["file1.txt", "file2.txt", "file3.txt"], function(total, fileName) {
+    return fs.readFileAsync(fileName, "utf8").then(function(contents) {
+        return total + parseInt(contents, 10);
+    });
+}, 0).then(function(total) {
+    //Total is 30
+});
+```
 
 ## usage
 

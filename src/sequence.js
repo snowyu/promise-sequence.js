@@ -1,4 +1,4 @@
-var Promise   = require('any-promise');
+// var Promise   = require('any-promise');
 var isArray   = Array.isArray;
 var cast      = Promise.cast || Promise.resolve;
 
@@ -14,7 +14,7 @@ var cast      = Promise.cast || Promise.resolve;
   the result of each task in the array position corresponding
   to position of the task in the tasks array
 */
-module.exports = function sequence(tasks, aArgs, self){
+function sequence(tasks, aArgs, self){
   if (!isArray(aArgs)) {
     self = aArgs;
     aArgs = [];
@@ -34,3 +34,6 @@ module.exports = function sequence(tasks, aArgs, self){
     return Promise.all(result);
   });
 };
+
+module.exports = sequence
+module.exports.default = sequence

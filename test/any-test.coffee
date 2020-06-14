@@ -5,14 +5,14 @@ assert          = chai.assert
 should          = chai.should()
 chai.use(sinonChai)
 
-require('any-promise/register')('bluebird')
+# require('any-promise/register')('bluebird')
 
 any             = require '../src/any'
-Promise         = require 'any-promise'
+# Promise         = require 'any-promise'
 
-cast            = Promise.cast || Promise.resolve
-rejected        = Promise.reject
-resolved        = Promise.resolve
+rejected        = Promise.reject.bind(Promise)
+resolved        = Promise.resolve.bind(Promise)
+cast            = resolved
 log             = console.log.bind console
 
 describe "any", ->

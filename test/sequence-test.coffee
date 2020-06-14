@@ -5,9 +5,9 @@ assert          = chai.assert
 should          = chai.should()
 
 sequence        = require '../src/sequence'
-Promise         = require 'any-promise'
+# Promise         = require 'any-promise'
 
-cast            = Promise.cast || Promise.resolve
+cast            = Promise.resolve.bind(Promise)
 log             = console.log.bind console
 
 chai.use(sinonChai)

@@ -6,9 +6,9 @@ should          = chai.should()
 chai.use(sinonChai)
 
 sequence        = require '../src/pipeline'
-Promise         = require 'any-promise'
+# Promise         = require 'any-promise'
 
-cast            = Promise.cast || Promise.resolve
+cast            = Promise.resolve.bind(Promise)
 log             = console.log.bind console
 
 sentinel = { value: 'sentinel' }
