@@ -11,10 +11,10 @@ node_js:
   - "12"
   - "13"
   - "14"
-before_install:
+before_script:
   - npm install -g grunt-cli
   - npm install coffee-script
-before_script: grunt build
+  - grunt build
 script: npm run-script test-cov
 after_success:
   - test -e ./coverage/lcov.info && npm install codeclimate-test-reporter && codeclimate-test-reporter
