@@ -85,6 +85,8 @@ If the reducer function returns a promise, then the result of the promise is awa
 
 Read given files sequentially while summing their contents as an integer. Each file contains just the text 10.
 
+need `Array.from`(patch already included).
+
 ```js
 Promise.reduce(["file1.txt", "file2.txt", "file3.txt"], function(total, fileName) {
     return fs.readFileAsync(fileName, "utf8").then(function(contents) {
@@ -94,6 +96,12 @@ Promise.reduce(["file1.txt", "file2.txt", "file3.txt"], function(total, fileName
     //Total is 30
 });
 ```
+
+### Polyfill helpers
+
+* `Array.from`: require('promise-sequence/lib/polyfill-array-from')
+* `Promise.reduce`: require('promise-sequence/lib/polyfill-reduce')
+* `Promise.prototype.finally`: require('promise-sequence/lib/polyfill-finally')
 
 ## usage
 
