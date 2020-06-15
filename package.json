@@ -30,8 +30,9 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "bluebird": "^3.7.2",
     "chai": "^3.5.0",
-    "grunt": "*",
+    "grunt": "~1.0.1",
     "grunt-contrib-clean": "*",
     "grunt-contrib-coffee": "*",
     "grunt-contrib-copy": "*",

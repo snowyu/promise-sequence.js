@@ -2,4 +2,5 @@
 --ui bdd
 --growl
 --colors
+--require test/setup.js
 test/**/*-test.coffee

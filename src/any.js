@@ -1,4 +1,4 @@
-require('./reduce')
+var promiseReduce = Promise.reduce || require('./reduce').default;
 // var Promise   = require('any-promise');
 
 // var isArray   = Array.isArray;
@@ -18,7 +18,7 @@ function any(aList, task){
     };
   }
 
-  return Promise.reduce(aList, _genReduceFn(task), null);
+  return promiseReduce(aList, _genReduceFn(task), null);
 };
 
 module.exports = any

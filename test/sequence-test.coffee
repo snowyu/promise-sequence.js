@@ -4,6 +4,7 @@ sinonChai       = require 'sinon-chai'
 assert          = chai.assert
 should          = chai.should()
 
+require('../src/polyfill-finally')
 sequence        = require '../src/sequence'
 # Promise         = require 'any-promise'
 

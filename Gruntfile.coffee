@@ -34,7 +34,7 @@ module.exports = (grunt) ->
         options:
           ui: 'bdd'
           quiet: false
-          require: 'coffee-script/register'
+          require: ['coffee-script/register', 'test/setup.js']
           reporter: 'dot'
           check: ['src/**/*.coffee', 'test/**/*.js', 'test/**/*.coffee']
         src: ['test/**/*.coffee']
@@ -52,7 +52,7 @@ module.exports = (grunt) ->
           'src/**/*.js'
           'test/*.coffee'
         ]
-    
+
 
   #grunt.loadTasks('tasks')
 
