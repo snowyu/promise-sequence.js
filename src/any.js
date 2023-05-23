@@ -1,14 +1,14 @@
-var promiseReduce = Promise.reduce || require('./reduce').default;
-// var Promise   = require('any-promise');
+import reduce from './reduce'
 
-// var isArray   = Array.isArray;
+const promiseReduce = Promise.reduce || reduce;
 
-/*
- @param aList {Array} each item as argument pass to the task.
- @param task {Promise} promise of task function
-*/
-
-function any(aList, task){
+/**
+ *
+ * @param aList {Array} each item as argument pass to the task.
+ * @param task {Promise} promise of task function
+ * @returns
+ */
+export function any(aList, task){
   function _genReduceFn(fn) {
     return function (previous, item){
       if (previous == null) {
@@ -21,5 +21,4 @@ function any(aList, task){
   return promiseReduce(aList, _genReduceFn(task), null);
 };
 
-module.exports = any
-module.exports.default = any
+export default any

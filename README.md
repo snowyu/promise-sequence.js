@@ -30,6 +30,7 @@ When all tasks have completed, the returned promise will resolve to an array con
 var pipeline = require('promise-sequence/lib/pipeline');
 var resultsPromise = pipeline(arrayOfTasks);
 ```
+
 Run an array of tasks in sequence, without overlap, similarly to `sequence`. The first task (e.g. arrayOfTasks[0]) will be called with the arguments passed to when.pipeline(), and each subsequence task will be called with the result of the previous task.
 
 Again, each may return a promise or a value. When a task returns a promise, the fully resolved value will be passed to the next task.

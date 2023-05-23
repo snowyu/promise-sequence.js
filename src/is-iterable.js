@@ -1,6 +1,6 @@
 
-function isIterable(v) {
-  var result = v != null;
+export function isIterable(v) {
+  let result = v != null;
   if (result) {
     result = Array.isArray(v);
     if (!result) {
@@ -13,5 +13,4 @@ function isIterable(v) {
   return result;
 }
 
-module.exports = isIterable
-module.exports.default = isIterable
+export default isIterable

@@ -1,3 +1,3 @@
-var reduce = require('./reduce').default;
+import reduce from './reduce';
 
 if (!Promise.reduce) Promise.reduce = reduce;

@@ -1,8 +1,9 @@
-var arrayFrom = Array.from || require('./array-from').default
-var isIterable = require('./is-iterable');
+import isIterable from './is-iterable';
+
+const arrayFrom = Array.from
 
 // reducer: function(any accumulator, any item, int index, int length): any
-function reduce(iterator, reducer, initialValue) {
+export function reduce(iterator, reducer, initialValue) {
   return Promise.resolve(iterator).then(genReducer(reducer, initialValue));
 }
 
@@ -36,7 +37,7 @@ function genReducer(reducer, initialValue) {
   }
 }
 
-module.exports.default = reduce
+export default reduce
 
 // module.exports.patch = function patch() {
 //   if (!Promise.reduce) Promise.reduce = reduce;

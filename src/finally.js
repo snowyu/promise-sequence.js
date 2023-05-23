@@ -1,4 +1,4 @@
-function promiseFinally (fn) {
+export function promiseFinally (fn) {
   const onFinally = function(value) {return Promise.resolve(fn()).then(function() {return value})};
   return this.then(
     function(result) { return onFinally(result)},
@@ -6,5 +6,5 @@ function promiseFinally (fn) {
   );
 }
 
-module.exports.default = promiseFinally
+export default promiseFinally
 

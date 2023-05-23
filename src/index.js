@@ -1,5 +1,9 @@
-var sequence  = module.exports = require('./sequence');
-sequence.pipeline = require('./pipeline');
-sequence.any  = require('./any');
-sequence.some = require('./some');
-sequence.default = sequence
+import sequence from './sequence'
+
+export * from './sequence'
+export * from './pipeline'
+export * from './any'
+export * from './some'
+
+export default sequence
+
