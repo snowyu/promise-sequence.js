@@ -5,7 +5,7 @@ export function isIterable(v) {
     result = Array.isArray(v);
     if (!result) {
       try {
-        result = typeof obj[Symbol.iterator] === 'function';
+        result = typeof v[Symbol.iterator] === 'function';
       } catch (e) {}
 
     }
