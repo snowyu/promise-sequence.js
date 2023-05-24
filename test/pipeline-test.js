@@ -109,6 +109,15 @@ describe("pipeline", function() {
   it('should stop task if throw EPipeStop error', async function() {
     const t = async(x) => {
       const err = new EPipeStop()
+      throw err
+    }
+    let result = await sequence([createTask('b'), t, createTask('d')], ['a'])
+    should.exist(result);
+    result.should.be.equal('ab');
+  });
+  it('should stop task and return value if throw EPipeStop error', async function() {
+    const t = async(x) => {
+      const err = new EPipeStop()
       err.result = x + 't'
       throw err
     }

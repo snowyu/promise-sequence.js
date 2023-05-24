@@ -3,10 +3,14 @@ const isArray   = Array.isArray;
 
 /**
  * Error class used to stop a pipeline execution.
- *
- * @property {*} result - the return result when stopping the entire sequence.
  */
-export class EPipeStop extends Error {}
+export class EPipeStop extends Error {
+  /**
+   * the return result when stopping the entire sequence.
+   * @type { * }
+   */
+  result
+}
 
 /**
  * Run a set of task functions in sequence, passing the result
@@ -49,7 +53,7 @@ export function pipeline(tasks, aArgs, self){
             args = [result]
           } catch (err) {
             if (!(err instanceof EPipeStop)) {throw err}
-            result = err.result
+            if (err.result !== undefined) {result = err.result}
             break;
           }
         } else {
