@@ -54,6 +54,7 @@ const tasks = [
   function double(num) { return num * 2 },
   function stopAndRet(num) {
     const err = new EPipeStop()
+    // if wanna return a result else prev result will be returned.
     err.result = num * num
     throw err
   },
