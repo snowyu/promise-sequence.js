@@ -17,13 +17,13 @@ const log = console.log.bind(console);
 
 describe("any", function() {
   it('should reject error when no inputs', function(done) {
-    any()["catch"](function(err) {
+    any().catch(function(err) {
       should.exist(err);
       return done();
     });
   });
   it('should reject the non-array inputs', function(done) {
-    any(cast(1))["catch"](function(r) {
+    any(cast(1)).catch(function(r) {
       should.exist(r);
       return done();
     });
@@ -35,7 +35,7 @@ describe("any", function() {
     });
   });
   it('should reject the first rejected input value if someone is rejected', function(done) {
-    any([rejected(1), rejected(2), rejected(3)])["catch"](function(err) {
+    any([rejected(1), rejected(2), rejected(3)]).catch(function(err) {
       err.should.be.equal(1);
       return done();
     });
@@ -55,7 +55,7 @@ describe("any", function() {
     });
   });
   it('should accept a promise for an array', function(done) {
-    any(resolved([1, 2, 3]))["catch"](function(err) {
+    any(resolved([1, 2, 3])).catch(function(err) {
       return done(err);
     }).then(function(result) {
       assert.equal(result, 1);
@@ -73,7 +73,7 @@ describe("any", function() {
         }
       });
     });
-    any([cast(1), cast(2), 3, 4], task, true)["catch"](function(err) {
+    any([cast(1), cast(2), 3, 4], task, true).catch(function(err) {
       assert.equal(err, 'cusError');
       task.should.be.calledOnce;
       return done();
@@ -88,9 +88,9 @@ describe("any", function() {
         } else {
           reject(new Error('hi'));
         }
-      })["catch"](function() {});
+      }).catch(function() {});
     });
-    any([cast(1), cast(2), 3, 4], task, true)["catch"](function(err) {
+    any([cast(1), cast(2), 3, 4], task, true).catch(function(err) {
       return done(err);
     }).then(function(result) {
       should.exist(result);

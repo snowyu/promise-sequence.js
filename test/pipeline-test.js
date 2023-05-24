@@ -107,9 +107,35 @@ describe("pipeline", function() {
     result.should.be.equal('abcd');
   });
   it('should stop task if throw EPipeStop error', async function() {
-    const t = async() => {throw new EPipeStop()}
+    const t = async(x) => {
+      const err = new EPipeStop()
+      err.result = x + 't'
+      throw err
+    }
     let result = await sequence([createTask('b'), t, createTask('d')], ['a'])
     should.exist(result);
-    result.should.be.equal('ab');
+    result.should.be.equal('abt');
+  });
+  it('should execute synchronous tasks', async function() {
+    const tasks = [
+      function double(num) { return num * 2 },
+      function square(num) { return num * num },
+      function subtract(num) { return num - 2 }
+    ]
+    const result = await sequence(tasks, [2]);
+    assert.equal(result, 14)
+  });
+  it('should execute synchronous tasks and stop', async function() {
+    const tasks = [
+      function double(num) { return num * 2 },
+      function square(num) {
+        const err = new EPipeStop()
+        err.result = num * num
+        throw err
+      },
+      function subtract(num) { return num - 2 }
+    ]
+    const result = await sequence(tasks, [2]);
+    assert.equal(result, 16)
   });
 });

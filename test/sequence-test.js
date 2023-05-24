@@ -81,7 +81,7 @@ describe("sequence", function() {
       return assert.equal(e, sentinel);
     });
   });
-  return it('should pass constants as task', function(done) {
+  it('should pass constants as task', function(done) {
     var tasks;
     tasks = [1, "abcX", null, void 0];
     sequence(tasks).then(function(result) {
@@ -91,5 +91,15 @@ describe("sequence", function() {
     })["catch"](function(e) {
       return done(e);
     });
+  });
+  it('should execute synchronous tasks', async() => {
+    const tasks = [
+      function add(a, b) { return a + b },
+      function subtract(a, b) { return a - b },
+      function multiply(a, b) { return a * b }
+    ];
+    // Execute the sequence with [3, 2] arguments.
+    const result = await sequence(tasks, [3, 2]);
+    assert.deepEqual(result, [5, 1, 6]); // Output: [5, 1, 6]
   });
 });
