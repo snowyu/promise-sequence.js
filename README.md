@@ -12,23 +12,56 @@ Promise Sequence execution tasks.
 
 ## API
 
-### sequence(tasks[, args][, self])
+### `sequence(tasks[, args][, self])`
 
 
 ```js
-var sequence = require('promise-sequence');
-var resultsPromise = sequence(arrayOfTasks);
+import {sequence} from 'promise-sequence';
+// Define an array of functions to execute in sequence.
+const tasks = [
+  function add(a, b) { return a + b },
+  function subtract(a, b) { return a - b },
+  function multiply(a, b) { return a * b }
+];
+// Execute the sequence with arguments.
+const result = await sequence(tasks, [3, 2]);
+console.log(result); // Output: [5, 1, 6]
+// Explanation: The arguments are 3 and 2. The first function adds them to get 5. The second function subtracts 2 from 3, resulting in-1. The third function multiplies 2 with 3, resulting 6.
+
 ```
 
 Run an array of tasks in sequence, without overlap. Each task will be called with the arguments passed to when.sequence(), and each may return a promise or a value.
 
 When all tasks have completed, the returned promise will resolve to an array containing the result of each task at the corresponding array position. The returned promise will reject when any task throws or returns a rejection.
 
-### pipeline(tasks[, args][, self])
+### `pipeline(tasks[, args][, self])`
 
 ```js
-var pipeline = require('promise-sequence/lib/pipeline');
-var resultsPromise = pipeline(arrayOfTasks);
+import {EPipeStop, pipeline} from 'promise-sequence';
+
+// Define a pipeline of functions to execute.
+const tasks = [
+  function double(num) { return num * 2 },
+  function square(num) { return num * num },
+  function subtract(num) { return num - 2 }
+];
+// Execute the pipeline with initial arguments.
+const result = await pipeline(tasks, [2]);
+console.log(result); // Output: 14
+// Explanation: The initial argument is 2. The first function doubles it to 4. The second function squares it to 16. The third function subtracts 2 from 16, resulting in 14.
+
+const tasks = [
+  function double(num) { return num * 2 },
+  function stopAndRet(num) {
+    const err = new EPipeStop()
+    err.result = num * num
+    throw err
+  },
+  function subtract(num) { return num - 2 }
+];
+const result = await pipeline(tasks, [2]);
+console.log(result); // Output: 16
+// Explanation: The initial argument is 2. The first function doubles it to 4. The second function squares it to 16 and stop the sequence.
 ```
 
 Run an array of tasks in sequence, without overlap, similarly to `sequence`. The first task (e.g. arrayOfTasks[0]) will be called with the arguments passed to when.pipeline(), and each subsequence task will be called with the result of the previous task.
@@ -37,34 +70,46 @@ Again, each may return a promise or a value. When a task returns a promise, the 
 
 When all tasks have completed, the returned promise will resolve to the result of the last task. The returned promise will reject when any task throws or returns a rejection.
 
+If you wanna stop the execution of the sequence, throw the `EPipeStop` in the task to `pipeline`. This will cause the entire sequence to be aborted.
 
-### any(list, task)
+### `any(list, task)`
+
+Executes a provided task function with a list of arguments sequentially until the result is not `null`.
 
 ```js
-var any = require('promise-sequence/lib/any');
-var fs  = require('fs');
-var readFile = Promise.promisify(fs.readFile, fs);
+import {any} from 'promise-sequence'
+import fs from 'fs'
 
-var readFileAndIgnoreError = function (aFile, aOptions) {
+const readFile = Promise.promisify(fs.readFile, fs);
+function readFileAndIgnoreError(aFile, aOptions) {
   return readFile(aFile,aOptions).catch(function(){});
 }
 
+// Execute the readFile task with arguments in the list one by one until the result exists.
 any(['./config.yml', './config.json'], readFileAndIgnoreError).then(function(result){
   console.log(result);
 });
-```
 
+// Find the first even number in an array using the any() function.
+const numbers = [1, 3, 5, 6, 7];
+const evenNumber = await any(numbers, (num) => {
+  if (num % 2 === 0) {
+    return num;
+  }
+});
+console.log(evenNumber); // Output: 6
+```
 
 like the bluebird.any, but it is sequence execution.
 need `Promise.reduce`(patch already included).
 
-### some(list, total, task)
+### `some(list, total, task)`
 
 ```js
-var some = require('promise-sequence/lib/some');
-var fs  = require('fs');
-var readFile = Promise.promisify(fs.readFile, fs);
-var readFileAndIgnoreError = function (aFile, aOptions) {
+import {some} from 'promise-sequence/lib/some';
+import fs from 'fs';
+const readFile = Promise.promisify(fs.readFile, fs);
+function readFileAndIgnoreError(aFile, aOptions) {
   return readFile(aFile,aOptions).catch(function(){});
 }
 
@@ -76,7 +121,7 @@ some(['./config.yml', './config.json'], 1, readFileAndIgnoreError).then(function
 like the bluebird.some, but it is sequence execution.
 need `Promise.reduce`(patch already included).
 
-### Promise.reduce(iteratable, reducer, initialValue): Promise<any>
+### `Promise.reduce(iteratable, reducer, initialValue): Promise<any>`
 
 * reducer: `function<T>(<T> accumulator, any item, int index, int length): Promise<T>|T`
 

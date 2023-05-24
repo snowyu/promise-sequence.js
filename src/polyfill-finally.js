@@ -1,3 +1,4 @@
-import pFinally from './finally';
+import pFinally from './finally'
 
-Promise.prototype.finally = Promise.prototype.finally || pFinally;
+// eslint-disable-next-line no-extend-native
+if (Promise.prototype.finally === undefined) {Promise.prototype.finally = pFinally}

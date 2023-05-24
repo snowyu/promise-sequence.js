@@ -10,7 +10,7 @@ export function reduce(iterator, reducer, initialValue) {
 function genReducer(reducer, initialValue) {
   if (typeof reducer !== 'function') { throw new TypeError('reducer should be a func')}
   return function(val) {
-  if (!isIterable(val)) return Promise.reject(new TypeError('iterator should be iteratabled'))
+  if (!isIterable(val)) {return Promise.reject(new TypeError('iterator should be iteratabled'))}
   val = Array.isArray(val) ? val : arrayFrom(val)
 
     const length = val.length;

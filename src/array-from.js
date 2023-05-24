@@ -16,7 +16,7 @@ function toLength(value) {
 };
 
 // The length property of the from method is 1.
-export function arrFrom(arrayLike/*, mapFn, thisArg */) {
+export function arrFrom(arrayLike/* , mapFn, thisArg */) {
   // 1. Let C be the this value.
   const C = this;
 
@@ -29,7 +29,7 @@ export function arrFrom(arrayLike/*, mapFn, thisArg */) {
   }
 
   // 4. If mapfn is undefined, then let mapping be false.
-  const mapFn = arguments.length > 1 ? arguments[1] : void undefined;
+  const mapFn = arguments.length > 1 ? arguments[1] : undefined;
   let T;
   if (typeof mapFn !== 'undefined') {
     // 5. else
