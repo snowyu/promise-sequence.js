@@ -27,6 +27,10 @@ Renames and re-exports [sequence](sequence.md#sequence)
 Run a set of task functions in sequence.  All tasks will
 receive the same args.
 
+**`Throws`**
+
+Thrown when a task throws an `EPipeStop` error to stop the sequence execution.
+
 **`Example`**
 
 ```ts
@@ -61,4 +65,4 @@ to position of the task in the tasks array
 
 #### Defined in
 
-[src/sequence.js:31](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/sequence.js#L31)
+[src/sequence.js:32](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/sequence.js#L32)

@@ -63,4 +63,4 @@ A promise that resolves to the result of the task function, or null if no result
 
 #### Defined in
 
-[src/any.js:31](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/any.js#L31)
+[src/any.js:31](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/any.js#L31)

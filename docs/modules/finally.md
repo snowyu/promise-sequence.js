@@ -40,4 +40,4 @@ Adds a finally clause to a promise, which executes a function after the promise 
 
 #### Defined in
 
-[src/finally.js:8](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/finally.js#L8)
+[src/finally.js:8](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/finally.js#L8)

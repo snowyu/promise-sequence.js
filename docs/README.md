@@ -15,7 +15,7 @@ Promise Sequence execution tasks.
 ### `sequence(tasks[, args][, self])`
 
 ```js
-import {sequence} from 'promise-sequence';
+import {EPipeStop, sequence} from 'promise-sequence';
 // Define an array of functions to execute in sequence.
 const tasks = [
   function add(a, b) { return a + b },
@@ -27,6 +27,19 @@ const result = await sequence(tasks, [3, 2]);
 console.log(result); // Output: [5, 1, 6]
 // Explanation: The arguments are 3 and 2. The first function adds them to get 5. The second function subtracts 2 from 3, resulting in-1. The third function multiplies 2 with 3, resulting 6.
 
+const tasks = [
+  function add(a, b) { return a + b },
+  function stopAndRet(a, b) {
+    const err = new EPipeStop()
+    // apply err.result if wanna return a result else no result returned.
+    err.result = a - b
+    throw err
+  },
+  function multiply(a, b) { return a * b }
+];
+// Execute the sequence with arguments.
+const result = await sequence(tasks, [3, 2]);
+console.log(result); // Output: [5, 1], the third task can not be executed.
 ```
 
 Run an array of tasks in sequence, without overlap. Each task will be called with the arguments passed to when.sequence(), and each may return a promise or a value.
@@ -53,7 +66,7 @@ const tasks = [
   function double(num) { return num * 2 },
   function stopAndRet(num) {
     const err = new EPipeStop()
-    // if wanna return a result else prev result will be returned.
+    // apply err.result if wanna return a result else prev result will be returned.
     err.result = num * num
     throw err
   },

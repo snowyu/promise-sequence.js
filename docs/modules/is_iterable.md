@@ -38,4 +38,4 @@ Check the value whether iterable.
 
 #### Defined in
 
-[src/is-iterable.js:9](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/is-iterable.js#L9)
+[src/is-iterable.js:9](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/is-iterable.js#L9)

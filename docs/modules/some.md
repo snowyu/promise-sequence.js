@@ -38,4 +38,4 @@ Renames and re-exports [some](some.md#some)
 
 #### Defined in
 
-[src/some.js:14](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/some.js#L14)
+[src/some.js:14](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/some.js#L14)

@@ -37,4 +37,4 @@ Renames and re-exports [arrFrom](array_from.md#arrfrom)
 
 #### Defined in
 
-[src/array-from.js:19](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/array-from.js#L19)
+[src/array-from.js:19](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/array-from.js#L19)

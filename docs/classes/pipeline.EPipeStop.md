@@ -83,7 +83,7 @@ the return result when stopping the entire sequence.
 
 #### Defined in
 
-[src/pipeline.js:12](https://github.com/snowyu/promise-sequence.js/blob/453a011/src/pipeline.js#L12)
+[src/pipeline.js:12](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/pipeline.js#L12)
 
 ___
 
