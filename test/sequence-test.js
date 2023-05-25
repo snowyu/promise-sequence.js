@@ -10,6 +10,7 @@ chai.use(sinonChai);
 import '../src/polyfill-finally'
 
 import sequence from '../src/sequence';
+import {EPipeStop} from '../src/';
 
 const cast = Promise.resolve.bind(Promise);
 const log = console.log.bind(console);
@@ -101,5 +102,28 @@ describe("sequence", function() {
     // Execute the sequence with [3, 2] arguments.
     const result = await sequence(tasks, [3, 2]);
     assert.deepEqual(result, [5, 1, 6]); // Output: [5, 1, 6]
+  });
+  it('should stop task if throw EPipeStop error', async function() {
+    const t = async(x) => {
+      const err = new EPipeStop()
+      throw err
+    }
+    let result = await sequence([createTask(1), t, createTask(3)])
+    should.exist(result);
+    assert.deepEqual(result, [1]);
+  });
+  it('should stop task and return value if throw EPipeStop error', async function() {
+    const tasks = [
+      function add(a, b) { return a + b },
+      function stopAndRet(a, b) {
+        const err = new EPipeStop()
+        // apply err.result if wanna return a result else no result returned.
+        err.result = a - b
+        throw err
+      },
+      function multiply(a, b) { return a * b }
+    ];
+    const result = await sequence(tasks, [3, 2]);
+    assert.deepEqual(result, [5, 1]);
   });
 });

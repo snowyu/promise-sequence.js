@@ -1,6 +1,6 @@
-// var Promise   = require('any-promise');
-const isArray   = Array.isArray;
-const cast      = Promise.cast || Promise.resolve;
+import {EPipeStop} from './pipeline'
+
+const isArray   = Array.isArray
 
 
 /**
@@ -10,6 +10,7 @@ const cast      = Promise.cast || Promise.resolve;
  * @param {Array|function} tasks  An array of functions to execute in sequence, or a single function to execute.
  * @param {Array|*} [args] the arguments to be passed to all tasks or the object to use as `this` when executing each function in the sequence.
  * @param {*} [self] `this` argument to be passed to all tasks
+ * @throws {EPipeStop} Thrown when a task throws an `EPipeStop` error to stop the sequence execution.
  * @return {Promise} promise for an array containing
  * the result of each task in the array position corresponding
  * to position of the task in the tasks array
@@ -30,23 +31,28 @@ const cast      = Promise.cast || Promise.resolve;
  */
 export function sequence(tasks, aArgs, self){
   if (!isArray(aArgs)) {
-    self = aArgs;
-    aArgs = [];
+    self = aArgs
+    aArgs = []
   }
   if (!isArray(tasks)) {tasks = [tasks]}
   if (!self) {self = this}
-  return Promise.all(aArgs).then(function(args){
-    let current = cast.call(Promise);
-    const result = [];
-    tasks.forEach(function(task){
+  return Promise.all(aArgs).then(async function(args){
+    const result = []
+    for (const task of tasks) {
       if (task && task.apply) {
-        result.push(current = current.then(function(){return task.apply(self, args);}));
+        try {
+          result.push(await task.apply(self, args))
+        } catch (err) {
+          if (!(err instanceof EPipeStop)) {throw err}
+          if (err.result !== undefined) {result.push(err.result)}
+          break;
+        }
       } else {
-        result.push(task);
+        result.push(task)
       }
-    });
-    return Promise.all(result);
-  });
-};
+    }
+    return Promise.all(result)
+  })
+}
 
 export default sequence
