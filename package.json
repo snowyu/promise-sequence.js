@@ -2,7 +2,7 @@
   "name": "promise-sequence",
   "description": "Sequnence execution tasks via any-promise.",
   "homepage": "https://github.com/snowyu/promise-sequence.js",
-  "version": "2.0.0-alpha.0",
+  "version": "2.0.0-alpha.1",
   "author": {
     "name": "Riceball LEE",
     "email": "snowyu.lee@gmail.com"

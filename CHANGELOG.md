@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [2.0.0-alpha.1](https://github.com/snowyu/promise-sequence.js/compare/v2.0.0-alpha.0...v2.0.0-alpha.1) (2023-05-25)
+
+
+### Features
+
+* **sequence:** Add EPipeStop support for sequence ([550b1ff](https://github.com/snowyu/promise-sequence.js/commit/550b1fff0c3290454683b6cdfab20db62a99ed30))
+
 ## [2.0.0-alpha.0](https://github.com/snowyu/promise-sequence.js/compare/v1.0.0...v2.0.0-alpha.0) (2023-05-24)
 
 
