@@ -100,18 +100,29 @@ describe("any", function() {
       return done();
     });
   });
-  it.only('should execute task until result', async function() {
+  it('should execute task until result', async function() {
     let c = 0
-    const result = await any([1,2,3], async function(i){
+    const result = await any([1,2,3,4], async function(i){
       c++
       await sleep(1)
       if (i === 2) return i
     }).then(function(result) {
-      console.log('TCL:: ~ result ~ result:', result);
+      return result + 1
+    })
+    expect(result).to.equal(3)
+    expect(c).to.equal(2)
+  });
+  it('should get result without tasks', async function() {
+    let c = 0
+    const result = await any([1,2,3,4].map(async function(i){
+      c++
+      await sleep(1)
+      if (i === 2) return i
+    })).then(function(result) {
       return result
     })
     expect(result).to.equal(2)
-    expect(c).to.equal(2)
+    expect(c).to.equal(4)
   });
 });
 
