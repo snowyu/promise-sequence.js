@@ -124,6 +124,22 @@ describe("any", function() {
     expect(result).to.equal(2)
     expect(c).to.equal(4)
   });
+  it('should get result without tasks throw err', async function() {
+    let c = 0
+    let error
+    const result = await any([1,2,3,4].map(async function(i){
+      c++
+      await sleep(1)
+      if (i === 2) throw new Error('err')
+    }))
+    .catch(function(err) {
+      error = err
+    })
+    expect(result).to.equal(undefined)
+    expect(c).to.equal(4)
+    expect(error).to.be.an.instanceof(Error)
+    expect(error.message).to.equal('err')
+  });
 });
 
 async function sleep(ms) {
