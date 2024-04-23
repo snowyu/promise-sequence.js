@@ -5,6 +5,7 @@ import sinonChai from 'sinon-chai';
 import any from '../src/any';
 
 const assert = chai.assert;
+const expect = chai.expect;
 const should = chai.should();
 
 chai.use(sinonChai);
@@ -79,7 +80,7 @@ describe("any", function() {
       return done();
     });
   });
-  return it('should skip errors until resolve a input value', function(done) {
+  it('should skip errors until resolve a input value', function(done) {
     var task;
     task = sinon.spy(function(i) {
       return new Promise(function(resolve, reject) {
@@ -99,4 +100,23 @@ describe("any", function() {
       return done();
     });
   });
+  it.only('should execute task until result', async function() {
+    let c = 0
+    const result = await any([1,2,3], async function(i){
+      c++
+      await sleep(1)
+      if (i === 2) return i
+    }).then(function(result) {
+      console.log('TCL:: ~ result ~ result:', result);
+      return result
+    })
+    expect(result).to.equal(2)
+    expect(c).to.equal(2)
+  });
 });
+
+async function sleep(ms) {
+  return new Promise(function(resolve) {
+    setTimeout(resolve, ms);
+  })
+}
