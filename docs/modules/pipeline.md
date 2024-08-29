@@ -68,4 +68,4 @@ console.log(result); // Output: 14
 
 #### Defined in
 
-[src/pipeline.js:39](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/pipeline.js#L39)
+[src/pipeline.js:39](https://github.com/snowyu/promise-sequence.js/blob/de053e1/src/pipeline.js#L39)

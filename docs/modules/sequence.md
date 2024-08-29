@@ -65,4 +65,4 @@ to position of the task in the tasks array
 
 #### Defined in
 
-[src/sequence.js:32](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/sequence.js#L32)
+[src/sequence.js:32](https://github.com/snowyu/promise-sequence.js/blob/de053e1/src/sequence.js#L32)

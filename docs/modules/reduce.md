@@ -60,4 +60,4 @@ reduce(mySet, myReducer, 10).then((result) => {
 
 #### Defined in
 
-[src/reduce.js:26](https://github.com/snowyu/promise-sequence.js/blob/550b1ff/src/reduce.js#L26)
+[src/reduce.js:26](https://github.com/snowyu/promise-sequence.js/blob/de053e1/src/reduce.js#L26)
